@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中华传统文化词汇练习</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #f5f0e8 0%, #e8d5c4 50%, #f0e6d3 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      padding: 30px 20px;
+      background: linear-gradient(135deg, #8b1a1a, #c0392b, #8b1a1a);
+      border-radius: 20px 20px 0 0;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .header::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse, rgba(255,220,150,0.1) 0%, transparent 70%);
+      animation: shimmer 6s ease-in-out infinite;
+    }
+
+    @keyframes shimmer {
+      0%, 100% { transform: translate(0, 0); }
+      50% { transform: translate(20%, 20%); }
+    }
+
+    .header h1 {
+      font-size: 28px;
+      margin-bottom: 8px;
+      letter-spacing: 2px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .header p {
+      font-size: 14px;
+      opacity: 0.85;
+      position: relative;
+      z-index: 1;
+    }
+
+    .decoration {
+      font-size: 40px;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Vocabulary Word Bank */
+    .word-bank-section {
+      background: white;
+      margin: 0 0;
+      border-radius: 0;
+      padding: 20px 24px;
+      border-left: 5px solid #c0392b;
+      border-right: 5px solid #c0392b;
+    }
+
+    .word-bank-title {
+      font-size: 16px;
+      font-weight: bold;
+      color: #8b1a1a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .word-bank-title::before {
+      content: '📚';
+      font-size: 20px;
+    }
+
+    .word-cloud {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .word-chip {
+      background: linear-gradient(135deg, #c0392b, #e74c3c);
+      color: white;
+      padding: 5px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.3px;
+    }
+
+    /* Exercise Cards */
+    .exercise-section {
+      background: white;
+      border-radius: 0 0 20px 20px;
+      padding: 24px;
+      border-left: 5px solid #c0392b;
+      border-right: 5px solid #c0392b;
+      border-bottom: 5px solid #c0392b;
+    }
+
+    .section-title {
+      font-size: 17px;
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px dashed #e0d5c5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-title::before { content: '✏️'; font-size: 20px; }
+
+    .exercise-card {
+      background: #fffdf8;
+      border: 1px solid #e8dcc8;
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+
+    .exercise-card:hover {
+      box-shadow: 0 4px 15px rgba(139, 26, 26, 0.08);
+      border-color: #c9b89a;
+    }
+
+    .exercise-card.correct {
+      border-color: #27ae60;
+      background: #f0fff4;
+    }
+
+    .exercise-card.wrong {
+      border-color: #e74c3c;
+      background: #fff5f5;
+    }
+
+    .exercise-card.wrong .result-icon {
+      display: flex;
+    }
+
+    .exercise-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: linear-gradient(135deg, #8b1a1a, #c0392b);
+      color: white;
+      border-radius: 50%;
+      font-size: 13px;
+      font-weight: bold;
+      margin-right: 10px;
+      flex-shrink: 0;
+    }
+
+    .exercise-text {
+      font-size: 15px;
+      color: #333;
+      line-height: 2;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .input-wrapper {
+      display: inline-block;
+      position: relative;
+      margin: 0 4px;
+    }
+
+    .blank-input {
+      border: none;
+      border-bottom: 2px solid #c9b89a;
+      background: transparent;
+      font-size: 15px;
+      color: #8b1a1a;
+      padding: 2px 8px;
+      width: 130px;
+      text-align: center;
+      outline: none;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    .blank-input:focus {
+      border-bottom-color: #c0392b;
+      border-bottom-width: 2px;
+    }
+
+    .blank-input.correct {
+      border-bottom-color: #27ae60;
+      color: #27ae60;
+    }
+
+    .blank-input.wrong {
+      border-bottom-color: #e74c3c;
+      color: #e74c3c;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20% { transform: translateX(-5px); }
+      40% { transform: translateX(5px); }
+      60% { transform: translateX(-5px); }
+      80% { transform: translateX(5px); }
+    }
+
+    .result-icon {
+      display: none;
+      position: absolute;
+      right: -8px;
+      top: -8px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+
+    .result-icon.correct {
+      background: #27ae60;
+      color: white;
+    }
+
+    .result-icon.wrong {
+      background: #e74c3c;
+      color: white;
+    }
+
+    /* Controls */
+    .controls {
+      display: flex;
+      gap: 12px;
+      margin-top: 24px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      flex: 1;
+      min-width: 120px;
+      padding: 13px 20px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-family: inherit;
+      letter-spacing: 1px;
+    }
+
+    .btn-check {
+      background: linear-gradient(135deg, #8b1a1a, #c0392b);
+      color: white;
+    }
+
+    .btn-check:hover {
+      background: linear-gradient(135deg, #6b1515, #a02a1e);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(192, 57, 43, 0.35);
+    }
+
+    .btn-reset {
+      background: white;
+      color: #8b1a1a;
+      border: 2px solid #8b1a1a;
+    }
+
+    .btn-reset:hover {
+      background: #fdf5f5;
+      transform: translateY(-2px);
+    }
+
+    /* Score */
+    .score-panel {
+      margin-top: 24px;
+      padding: 20px;
+      background: linear-gradient(135deg, #8b1a1a, #c0392b);
+      border-radius: 14px;
+      color: white;
+      text-align: center;
+      display: none;
+    }
+
+    .score-panel.show {
+      display: block;
+      animation: slideUp 0.5s ease;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-number {
+      font-size: 48px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .score-label {
+      font-size: 14px;
+      opacity: 0.85;
+    }
+
+    .score-stars {
+      font-size: 28px;
+      margin-top: 10px;
+    }
+
+    /* Hint */
+    .hint-bar {
+      margin-top: 12px;
+      padding: 10px 16px;
+      background: #fff8e1;
+      border-radius: 10px;
+      font-size: 13px;
+      color: #7b5e00;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .hint-bar::before { content: '💡'; }
+
+    /* Progress */
+    .progress-bar-container {
+      margin-bottom: 20px;
+    }
+
+    .progress-label {
+      font-size: 13px;
+      color: #888;
+      margin-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: #e8dcc8;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #c0392b, #e74c3c);
+      border-radius: 10px;
+      transition: width 0.5s ease;
+      width: 0%;
+    }
+
+    /* Confetti */
+    .confetti-container {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .confetti-piece {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .header h1 { font-size: 22px; }
+      .exercise-text { font-size: 14px; }
+      .blank-input { width: 100px; font-size: 14px; }
+      .btn { min-width: 100px; padding: 11px 16px; font-size: 14px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header -->
+    <div class="header">
+      <div class="decoration">🏮 🇨🇳 🏮</div>
+      <h1>中华传统文化词汇练习</h1>
+      <p>Traditional Chinese Culture Vocabulary</p>
+    </div>
+
+    <!-- Word Bank -->
+    <div class="word-bank-section">
+      <div class="word-bank-title">核心基础词汇 · Core Vocabulary</div>
+      <div class="word-cloud" id="wordCloud"></div>
+    </div>
+
+    <!-- Exercises -->
+    <div class="exercise-section">
+      <div class="progress-bar-container">
+        <div class="progress-label">
+          <span>答题进度</span>
+          <span id="progressText">0 / 5</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+
+      <div class="section-title">句式练习 · Fill in the Blanks</div>
+
+      <div id="exerciseList"></div>
+
+      <div class="hint-bar">
+        直接在横线处输入答案，输入完成后点击「检查答案」按钮
+      </div>
+
+      <div class="controls">
+        <button class="btn btn-check" onclick="checkAll()">✨ 检查答案</button>
+        <button class="btn btn-reset" onclick="resetAll()">🔄 重置</button>
+      </div>
+
+      <div class="score-panel" id="scorePanel">
+        <div class="score-number" id="scoreNumber">0</div>
+        <div class="score-label">正确率</div>
+        <div class="score-stars" id="scoreStars"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="confetti-container" id="confettiContainer"></div>
+
+<script>
+const vocabulary = [
+  'traditional culture', 'Chinese painting',
+  'flower-and-bird painting', 'landscape painting',
+  'calligraphy', 'artist', 'beauty', 'art treasure',
+  'inherit', 'protect'
+];
+
+// answer[0] = correct answer, answer[1] = alternative correct answer(s) array
+const exercises = [
+  {
+    blanks: 3,
+    text: ['Chinese traditional arts include ', ', ', ' and ', '.'],
+    answers: [['Chinese painting', 'Chinese paintings'],
+              ['flower-and-bird painting', 'flower-and-bird paintings', 'calligraphy'],
+              ['calligraphy', 'Chinese painting', 'landscape painting', 'landscape paintings']]
+  },
+  {
+    blanks: 1,
+    text: ['Flower-and-bird painting shows the beauty of ', '.'],
+    answers: [['nature', 'life', 'flowers', 'birds', 'beauty', 'animals']]
+  },
+  {
+    blanks: 1,
+    text: ['Chinese calligraphy is a kind of ', ' art.'],
+    answers: [['traditional', 'Chinese', 'ancient', 'beautiful']]
+  },
+  {
+    blanks: 2,
+    text: ['We should ', ' and ', ' our traditional Chinese arts.'],
+    answers: [['protect', 'inherit', 'treasure', 'preserve', 'value'],
+              ['protect', 'inherit', 'treasure', 'preserve', 'value']]
+  },
+  {
+    blanks: 2,
+    text: ['Landscape painting makes people feel ', ' and ', '.'],
+    answers: [['peaceful', 'relaxed', 'calm', 'relax', 'comfortable', 'amazed'],
+              ['relaxed', 'peaceful', 'calm', 'comfortable', 'amazed', 'relax', 'impressed']]
+  }
+];
+
+let answered = new Array(exercises.length).fill(false);
+
+function init() {
+  // Render word bank
+  const wordCloud = document.getElementById('wordCloud');
+  vocabulary.forEach(word => {
+    const chip = document.createElement('span');
+    chip.className = 'word-chip';
+    chip.textContent = word;
+    wordCloud.appendChild(chip);
+  });
+
+  // Render exercises
+  const list = document.getElementById('exerciseList');
+  exercises.forEach((ex, i) => {
+    const card = document.createElement('div');
+    card.className = 'exercise-card';
+    card.id = `card-${i}`;
+
+    let html = `<div class="exercise-text"><span class="exercise-number">${i + 1}</span>`;
+    ex.text.forEach((seg, segIdx) => {
+      html += seg;
+      if (segIdx < ex.blanks) {
+        html += `<div class="input-wrapper">
+          <input class="blank-input" id="input-${i}-${segIdx}"
+            placeholder="____"
+            oninput="onInput(${i}, ${segIdx})"
+            onkeydown="handleKey(event, ${i}, ${segIdx})">
+          <span class="result-icon" id="icon-${i}-${segIdx}"></span>
+        </div>`;
+      }
+    });
+    html += `</div>`;
+    card.innerHTML = html;
+    list.appendChild(card);
+  });
+}
+
+function normalize(str) {
+  return str.trim().toLowerCase().replace(/['']/g, "'");
+}
+
+function isCorrect(exIdx, blankIdx, value) {
+  const validAnswers = exercises[exIdx].answers[blankIdx];
+  const norm = normalize(value);
+  return validAnswers.some(a => normalize(a) === norm);
+}
+
+function onInput(exIdx, blankIdx) {
+  // Clear previous state on new input
+  const input = document.getElementById(`input-${exIdx}-${blankIdx}`);
+  input.classList.remove('correct', 'wrong');
+  const icon = document.getElementById(`icon-${exIdx}-${blankIdx}`);
+  icon.style.display = 'none';
+  icon.className = 'result-icon';
+
+  // Update progress
+  updateProgress();
+
+  // Auto-check on blur
+  if (answered[exIdx]) {
+    answered[exIdx] = false;
+    document.getElementById(`card-${exIdx}`).classList.remove('correct', 'wrong');
+  }
+}
+
+function checkAll() {
+  let totalCorrect = 0;
+  let totalBlanks = 0;
+
+  exercises.forEach((ex, i) => {
+    const card = document.getElementById(`card-${i}`);
+    let cardCorrect = 0;
+
+    for (let b = 0; b < ex.blanks; b++) {
+      totalBlanks++;
+      const input = document.getElementById(`input-${i}-${b}`);
+      const icon = document.getElementById(`icon-${i}-${b}`);
+      const val = input.value.trim();
+
+      if (!val) {
+        input.classList.remove('correct', 'wrong');
+        icon.style.display = 'none';
+        continue;
+      }
+
+      if (isCorrect(i, b, val)) {
+        input.classList.remove('wrong');
+        input.classList.add('correct');
+        icon.textContent = '✓';
+        icon.className = 'result-icon correct';
+        icon.style.display = 'flex';
+        cardCorrect++;
+        totalCorrect++;
+      } else {
+        input.classList.remove('correct');
+        input.classList.add('wrong');
+        icon.textContent = '✗';
+        icon.className = 'result-icon wrong';
+        icon.style.display = 'flex';
+      }
+    }
+
+    answered[i] = cardCorrect === ex.blanks;
+    card.classList.remove('correct', 'wrong');
+    card.classList.add(answered[i] ? 'correct' : 'wrong');
+  });
+
+  // Score
+  const scorePanel = document.getElementById('scorePanel');
+  const scoreNumber = document.getElementById('scoreNumber');
+  const scoreStars = document.getElementById('scoreStars');
+
+  scorePanel.classList.add('show');
+  const pct = totalBlanks > 0 ? Math.round((totalCorrect / totalBlanks) * 100) : 0;
+  scoreNumber.textContent = pct + '%';
+
+  // Stars
+  let stars = '';
+  if (pct === 100) stars = '⭐⭐⭐';
+  else if (pct >= 80) stars = '⭐⭐';
+  else if (pct >= 50) stars = '⭐';
+  else stars = '😢';
+  scoreStars.textContent = stars;
+
+  updateProgress();
+
+  // Confetti for full marks
+  if (pct === 100) {
+    launchConfetti();
+  }
+}
+
+function resetAll() {
+  document.querySelectorAll('.blank-input').forEach(input => {
+    input.value = '';
+    input.classList.remove('correct', 'wrong');
+  });
+  document.querySelectorAll('.result-icon').forEach(icon => {
+    icon.style.display = 'none';
+  });
+  document.querySelectorAll('.exercise-card').forEach(card => {
+    card.classList.remove('correct', 'wrong');
+  });
+  answered = new Array(exercises.length).fill(false);
+
+  document.getElementById('scorePanel').classList.remove('show');
+  updateProgress();
+}
+
+function updateProgress() {
+  let answeredCount = 0;
+  document.querySelectorAll('.blank-input').forEach(input => {
+    if (input.value.trim()) answeredCount++;
+  });
+
+  // Count per-exercise progress
+  let exComplete = 0;
+  exercises.forEach((ex, i) => {
+    let allFilled = true;
+    for (let b = 0; b < ex.blanks; b++) {
+      const val = document.getElementById(`input-${i}-${b}`).value.trim();
+      if (!val) { allFilled = false; break; }
+    }
+    if (allFilled) exComplete++;
+  });
+
+  const pct = Math.round((exComplete / exercises.length) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressText').textContent = `${exComplete} / ${exercises.length}`;
+}
+
+function handleKey(e, exIdx, blankIdx) {
+  if (e.key === 'Enter') {
+    checkAll();
+  }
+}
+
+function launchConfetti() {
+  const container = document.getElementById('confettiContainer');
+  const colors = ['#c0392b', '#e74c3c', '#f39c12', '#27ae60', '#3498db', '#9b59b6', '#e91e63', '#ff9800'];
+
+  for (let i = 0; i < 60; i++) {
+    setTimeout(() => {
+      const piece = document.createElement('div');
+      piece.className = 'confetti-piece';
+      piece.style.left = Math.random() * 100 + 'vw';
+      piece.style.top = '-10px';
+      piece.style.background = colors[Math.floor(Math.random() * colors.length)];
+      piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+      piece.style.width = (Math.random() * 8 + 6) + 'px';
+      piece.style.height = (Math.random() * 8 + 6) + 'px';
+      piece.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      container.appendChild(piece);
+      setTimeout(() => piece.remove(), 4000);
+    }, i * 30);
+  }
+}
+
+init();
+</script>
+</body>
+</html>
