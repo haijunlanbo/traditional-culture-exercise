@@ -1,69 +1,53 @@
 # 中华传统文化词汇练习小程序
 
+一个精美的中华传统文化词汇填空练习网页应用。
+
+## 🌐 在线访问
+
+**永久地址（GitHub Pages）：**
+https://haijunlanbo.github.io/traditional-culture-exercise/
+
 ## 📱 扫码访问
 
-扫描下方二维码即可进入填词练习页面：
+用微信/相机扫描下方二维码直接打开练习：
 
-**公开访问地址（有效期与本地服务器运行时间同步）：**
-https://free-months-stop.loca.lt
+![GitHub Pages 二维码](qrcode-github-pages.png)
 
-> ⚠️ **首次访问说明**：localtunnel 免费版在首次访问时会显示"Click to Continue"验证页面，点击按钮后即可进入练习页面。
+## 📖 内容介绍
 
----
+- **核心词汇**：Chinese painting、calligraphy、landscape painting、flower-and-bird painting 等10个传统文化核心词汇
+- **填空练习**：5道精选练习题，涵盖多个核心词汇
+- **实时反馈**：答对显示绿色 ✓，答错显示红色 ✗ 并抖动提示
+- **进度追踪**：实时显示答题进度条
+- **评分系统**：完成后显示正确率和星级评分
+- **满分彩纸**：全部答对触发彩纸庆祝动画
 
-## 📂 文件说明
+## 🛠️ 本地运行
 
-- `index.html` — 填词练习主页面
-- `qrcode.png` — 二维码图片（扫码进入练习）
-- `public-url.txt` — 当前公开访问地址
-- `server.js` — 本地服务器（Node.js）
-- `generate-qr.js` — 启动脚本（自动启动服务器 + 生成隧道 + 生成二维码）
-
----
-
-## 🚀 启动方式
-
-### 方式一：一键启动（推荐）
-直接运行 `generate-qr.js`，会自动完成所有步骤：
 ```bash
-node generate-qr.js
-```
+# 方法一：双击 index.html 直接用浏览器打开
 
-### 方式二：手动启动本地服务器
-```bash
+# 方法二：使用 Node.js 启动本地服务器
 node server.js
-# 然后浏览器访问 http://localhost:8899/
+# 然后访问 http://localhost:3000
 ```
 
-### 启动公共隧道（二维码有效）
-需要 ngrok 或 localtunnel：
-```bash
-# localtunnel（自动安装）
-npx localtunnel --port 8899
+## 📁 文件结构
 
-# ngrok（如已安装）
-ngrok http 8899
 ```
+├── index.html              # 主页面（练习程序）
+├── qrcode-github-pages.png # GitHub Pages 二维码
+├── server.js              # 本地服务器
+├── generate-qr.js         # 生成临时隧道的二维码
+└── README.md              # 说明文档
+```
+
+## 🎯 适用场景
+
+- 英语课堂词汇教学
+- 中华文化英语表达学习
+- 移动端扫码即练
 
 ---
 
-## 📝 练习内容
-
-### 核心词汇
-traditional culture, Chinese painting, flower-and-bird painting, landscape painting, calligraphy, artist, beauty, art treasure, inherit, protect
-
-### 句式练习
-1. Chinese traditional arts include ________, ________ and ________.
-2. Flower-and-bird painting shows the beauty of ________.
-3. Chinese calligraphy is a kind of ________ art.
-4. We should ________ and ________ our traditional Chinese arts.
-5. Landscape painting makes people feel ________ and ________.
-
----
-
-## ✅ 功能说明
-
-- 输入答案后点击「检查答案」，正确变绿 ✓，错误变红 ✗
-- 点击「重置」可清除所有答案重新填写
-- 完成后显示正确率和星级评分
-- 全部答对时有彩纸庆祝动画 🎉
+*Made with ❤️ | 中华传统文化词汇练习*
